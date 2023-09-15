@@ -1,16 +1,23 @@
 [tool.poetry]
-name = "homeowner-maintanence-bot" 
-version = "0.0.0" 
-description = "A bot that keeps track of your homeowner chores." 
+name = "homeowner-maintanence-bot"
+version = "0.0.0"
+description = "A bot that keeps track of your homeowner chores."
 authors = [
     "Richard Ni <richardjni96@gmail.com>",
-] 
+]
 readme = "README.md"
 
 packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.8.2"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^2.20.0"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.1.2"
+pytest-cov = "^3.0.0"
 
 [build-system]
 requires = ["poetry-core"]
