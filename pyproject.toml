@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "homeowner-maintanence-bot" 
+version = "0.0.0" 
+description = "A bot that keeps track of your homeowner chores." 
+authors = [
+    "Richard Ni <richardjni96@gmail.com>",
+] 
+readme = "README.md"
+
+packages = [{include = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.8.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
