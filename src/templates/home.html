@@ -63,9 +63,13 @@
         <img id="banner" src="../static/splash.jpg">
         <h2>Upcoming Tasks</h2>
         <p style="margin-bottom: 50px;">Here are some tasks you have upcoming!</p>
-        {% for task in tasks %}
-        {% include 'taskitem.html' %}
-        {% endfor %}
+        <ul class="list-group">
+            {% for task in tasks %}
+            <li class="list-group-item">
+                {% include 'taskitem.html' %}
+            </li>
+            {% endfor %}
+        </ul>
     </div>
 </body>
 
