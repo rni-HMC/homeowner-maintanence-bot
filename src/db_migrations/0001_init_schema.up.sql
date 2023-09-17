@@ -1,7 +1,7 @@
 CREATE TABLE `tasks` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `description` varchar(255),
+  `description` text,
   `seconds_between_completions` integer,
   `cost` integer,
   `type_id` integer,
@@ -28,7 +28,7 @@ CREATE TABLE `attempts` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `task_id` integer NOT NULL,
   `title` varchar(255),
-  `notes` varchar(255),
+  `notes` text,
   `user_id` integer NOT NULL,
   `status` varchar(255),
   `created_at` timestamp,

@@ -30,4 +30,5 @@ def delete_db(engine: Engine):
 if __name__ == "__main__":
     engine = connect_via_envvars()
     initialize_db(engine)
-    delete_db(engine)
+    execute_sql_file(engine, Path(__file__).parent / "0002_add_data.up.sql")
+    # delete_db(engine)
