@@ -11,6 +11,7 @@ def execute_sql_file(engine: Engine, filepath: Path):
             queries = file.read().split(";\n\n")
             for query in queries:
                 con.execute(text(query))
+        con.commit()
 
 
 def initialize_db(engine: Engine):
@@ -27,8 +28,15 @@ def delete_db(engine: Engine):
     )
 
 
+def add_data(engine: Engine):
+    execute_sql_file(
+        engine,
+        Path(__file__).parent / "0002_add_data.up.sql",
+    )
+
+
 if __name__ == "__main__":
     engine = connect_via_envvars()
-    initialize_db(engine)
-    execute_sql_file(engine, Path(__file__).parent / "0002_add_data.up.sql")
+    # initialize_db(engine)
+    # add_data(engine)
     # delete_db(engine)
