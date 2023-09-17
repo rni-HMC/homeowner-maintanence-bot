@@ -2,7 +2,7 @@ CREATE TABLE `tasks` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `description` varchar(255),
-  `frequency` interval,
+  `seconds_between_completions` integer,
   `cost` integer,
   `type_id` integer,
   `area_id` integer
@@ -44,10 +44,12 @@ ALTER TABLE `types` COMMENT = 'Cleaning, inspection/repair, etc.';
 
 ALTER TABLE `areas` COMMENT = 'Plumbing, Appliances, etc.';
 
-ALTER TABLE `tasks` ADD FOREIGN KEY (`type_id`) REFERENCES `types` (`id`);
+-- Can't use foreign keys in PlanetScale
 
-ALTER TABLE `tasks` ADD FOREIGN KEY (`area_id`) REFERENCES `areas` (`id`);
+-- ALTER TABLE `tasks` ADD FOREIGN KEY (`type_id`) REFERENCES `types` (`id`)
 
-ALTER TABLE `attempts` ADD FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`);
+-- ALTER TABLE `tasks` ADD FOREIGN KEY (`area_id`) REFERENCES `areas` (`id`)
 
-ALTER TABLE `attempts` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+-- ALTER TABLE `attempts` ADD FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`)
+
+-- ALTER TABLE `attempts` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
