@@ -1,3 +1,3 @@
 CREATE TABLE `keepalive` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
+  `id` int PRIMARY KEY AUTO_INCREMENT
 );
