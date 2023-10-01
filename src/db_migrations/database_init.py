@@ -37,6 +37,6 @@ def add_data(engine: Engine):
 
 if __name__ == "__main__":
     engine = connect_via_envvars()
-    # initialize_db(engine)
-    # add_data(engine)
+    initialize_db(engine)
+    add_data(engine)
     # delete_db(engine)
