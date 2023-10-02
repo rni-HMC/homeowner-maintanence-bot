@@ -20,7 +20,8 @@
         "FLASK_ENV": "development",
         "FLASK_DEBUG": "1",
         "LANG": "C.UTF-8",
-        "LC_ALL": "C.UTF-8"
+        "LC_ALL": "C.UTF-8",
+        "ENV_FILE_PATH": "/workspaces/homeowner-maintenance-bot/.env"
     },
     "postCreateCommand": "poetry shell && poetry install"
 }
