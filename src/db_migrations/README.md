@@ -1,0 +1,1 @@
+This folder contains database migrations, a way to initialize and update the database schema. I used this at first, before I started experimenting with sqlalchemy's ORM capabilities. I've left these files here as a reference, but this entire directory is essentially deprecated.
