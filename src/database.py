@@ -164,5 +164,5 @@ def delete_db():
 
 
 if __name__ == "__main__":
-    # delete_db()
+    delete_db()
     initialize_db()
