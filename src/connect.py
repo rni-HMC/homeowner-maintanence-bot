@@ -17,9 +17,7 @@ def connect_via_envvars(
     DATABASE = os.getenv("DATABASE")
 
     connection_string = (
-        "mysql+mysqlconnector://"
-        f"{DATABASE_USERNAME}:{DATABASE_PASSWORD}"
-        f"@{DATABASE_HOST}:3306/{DATABASE}"
+        "mysql+mysqlconnector://" f"{DATABASE_USERNAME}:{DATABASE_PASSWORD}" f"@{DATABASE_HOST}:3306/{DATABASE}"
     )
 
     engine = create_engine(connection_string, echo=True)

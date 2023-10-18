@@ -2,6 +2,7 @@ import datetime
 import os
 from typing import List
 
+from icecream import ic
 from sqlalchemy import DateTime, Engine, String, Text, select
 from sqlalchemy.sql import func
 
@@ -36,9 +37,7 @@ class Task(Base):
     area: Mapped["Area"] = relationship(
         primaryjoin="foreign(Area.id) == Task.area_id",
     )
-    created_date: Mapped[datetime.datetime] = mapped_column(
-        DateTime(timezone=True), server_default=func.now()
-    )
+    created_date: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
 
 class TaskType(Base):
@@ -62,12 +61,8 @@ class User(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column(String(255))
-    created_date: Mapped[datetime.datetime] = mapped_column(
-        DateTime(timezone=True), server_default=func.now()
-    )
-    attempts: Mapped[List["Attempt"]] = relationship(
-        primaryjoin="foreign(Attempt.user_id) == User.id"
-    )
+    created_date: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    attempts: Mapped[List["Attempt"]] = relationship(primaryjoin="foreign(Attempt.user_id) == User.id")
 
 
 class Attempt(Base):
@@ -79,12 +74,8 @@ class Attempt(Base):
     title: Mapped[str] = mapped_column(String(255))
     notes: Mapped[str] = mapped_column(Text)
     status: Mapped[str] = mapped_column(String(255))
-    created_date: Mapped[datetime.datetime] = mapped_column(
-        DateTime(timezone=True), server_default=func.now()
-    )
-    completed_date: Mapped[datetime.datetime] = mapped_column(
-        DateTime(timezone=True), server_default=func.now()
-    )
+    created_date: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    completed_date: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     cost: Mapped[int]
 
 
@@ -92,9 +83,7 @@ class KeepAlive(Base):
     __tablename__ = "keepalive"
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    kept_alive_date: Mapped[datetime.datetime] = mapped_column(
-        DateTime(timezone=True), server_default=func.now()
-    )
+    kept_alive_date: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
 
 def populate_data(engine: Engine):
@@ -123,10 +112,7 @@ def populate_data(engine: Engine):
             user_id=richard.id,
             task_id=inspect_kitchen_sink.id,
             title="Kitchen Sink Inspection Attempt 1",
-            notes=(
-                "I forgot to put on my glasses,"
-                " couldn't inspect anything b/c too blurry"
-            ),
+            notes=("I forgot to put on my glasses," " couldn't inspect anything b/c too blurry"),
             status="Failed",
             cost=0,
         )
@@ -149,27 +135,20 @@ def populate_data(engine: Engine):
 
 
 def validate_data(engine: Engine):
-    print("VALIDATING DATA ***************")
+    ic("VALIDATING DATA ***************")
     with Session(engine) as session:
-        session.execute(select(Area).where(Area.name == "Kitchen"))
-        print("RESULT ABOVE ^^^^")
-        session.execute(select(TaskType).where(TaskType.name == "Inspection"))
-        print("RESULT ABOVE ^^^^")
-        session.execute(select(Task))
-        print("RESULT ABOVE ^^^^")
-        session.execute(select(Attempt))
-        print("RESULT ABOVE ^^^^")
+        ic(session.execute(select(Area).where(Area.name == "Kitchen")))
+        ic(session.execute(select(TaskType).where(TaskType.name == "Inspection")))
+        ic(session.execute(select(Task)))
+        ic(session.execute(select(Attempt)))
         result = session.execute(select(User).where(User.name == "Richard"))
-        print("RESULT ABOVE ^^^^")
         richard: User = result.all()[0][0]
         # TODO idk why accessing this is so weird
-        print(f"Richard.id: {richard.id}")
-        print(f"Richard.name: {richard.name}")
-        print(f"Richard.created_date: {richard.created_date}")
-        print(f"Richard.attempts: {richard.attempts}")
-        print("RESULT ABOVE ^^^^")
-        session.execute(select(KeepAlive))
-        print("RESULT ABOVE ^^^^")
+        ic(f"Richard.id: {richard.id}")
+        ic(f"Richard.name: {richard.name}")
+        ic(f"Richard.created_date: {richard.created_date}")
+        ic(f"Richard.attempts: {richard.attempts}")
+        ic(session.execute(select(KeepAlive)))
 
 
 def initialize_db():
@@ -185,5 +164,5 @@ def delete_db():
 
 
 if __name__ == "__main__":
-    delete_db()
+    # delete_db()
     initialize_db()
