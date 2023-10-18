@@ -88,6 +88,15 @@ class Attempt(Base):
     cost: Mapped[int]
 
 
+class KeepAlive(Base):
+    __tablename__ = "keepalive"
+
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    kept_alive_date: Mapped[datetime.datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
+
+
 def populate_data(engine: Engine):
     with Session(engine) as session:
         kitchen = Area(name="Kitchen", description="Kitchen tasks")
@@ -134,6 +143,10 @@ def populate_data(engine: Engine):
         session.add_all([attempt_1, attempt_2])
         session.commit()
 
+        initial_keepalive_heartbeat = KeepAlive()
+        session.add_all([initial_keepalive_heartbeat])
+        session.commit()
+
 
 def validate_data(engine: Engine):
     print("VALIDATING DATA ***************")
@@ -154,6 +167,9 @@ def validate_data(engine: Engine):
         print(f"Richard.name: {richard.name}")
         print(f"Richard.created_date: {richard.created_date}")
         print(f"Richard.attempts: {richard.attempts}")
+        print("RESULT ABOVE ^^^^")
+        session.execute(select(KeepAlive))
+        print("RESULT ABOVE ^^^^")
 
 
 def initialize_db():
